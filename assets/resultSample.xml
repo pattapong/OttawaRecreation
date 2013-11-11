@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://app06.ottawa.ca/templates/xslt/public_swimming_results_en.xsl"?>
+<response>
+	<result name="response" numFound="12" start="0">
+		<doc>
+			<arr name="day">
+				<str>Monday</str>
+			</arr>
+			<arr name="dayNo">
+				<str>0</str>
+			</arr>
+			<date name="end_date">2014-06-30T00:00:00Z</date>
+			<str name="end_time">21:30</str>
+			<arr name="event">
+				<str>Swimming</str>
+			</arr>
+			<str name="id">L5_1377020503408en</str>
+			<str name="lang">en</str>
+			<arr name="location">
+				<str>Brewer Pool</str>
+			</arr>
+			<arr name="location_alt">
+				<str>Brewer Complex</str>
+			</arr>
+			<str name="location_map">http://apps104.ottawa.ca/emap?emapver=lite&amp;LAT=45.389361&amp;LON=-75.691916&amp;featname=Brewer Pool%5Cn151 Brewer&amp;lang=en</str>
+			<str name="location_url">http://www.ottawa.ca/e/CON060418</str>
+			<int name="popularity">0</int>
+			<arr name="region">
+				<str>East</str>
+			</arr>
+			<arr name="session_type">
+				<str>Lane Swim</str>
+			</arr>
+			<date name="start_date">2013-09-03T00:00:00Z</date>
+			<str name="start_time">20:00</str>
+			<date name="timestamp">2013-10-27T00:35:07.133Z</date>
+		</doc>
+	</result>
+	<paging>
+		<nextPage/>
+		<prevPage/>
+		<startRow>1</startRow>
+		<toRow>12</toRow>
+		<totalRows>12</totalRows>
+		<returnToSearch>http://ottawa.ca/e/CON061600</returnToSearch>
+	</paging>
+</response>
