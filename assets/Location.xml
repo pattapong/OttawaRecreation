@@ -1,30 +1,29 @@
 <Location>
-	<Pool value="Any">Any</Pool>
-	<Pool class="even" value="Bob MacQuarrie - Orléans Pool">Bob MacQuarrie - Orléans Pool</Pool>
-	<Pool value="Brewer Pool">Brewer Pool</Pool>
-	<Pool class="even" value="Canterbury Pool">Canterbury Pool</Pool>
-	<Pool value="Champagne Pool">Champagne Pool</Pool>
-	<Pool class="even" value="Deborah Anne Kirwan Pool">Deborah Anne Kirwan Pool</Pool>
-	<Pool value="François Dupuis Pool">François Dupuis Pool</Pool>
-	<Pool class="even" value="Goulbourn Pool">Goulbourn Pool</Pool>
-	<Pool value="Jack Purcell Pool">Jack Purcell Pool</Pool>
-	<Pool class="even" value="Kanata Wave Pool">Kanata Wave Pool</Pool>
-	<Pool value="Lowertown Pool">Lowertown Pool</Pool>
-	<Pool class="even" value="Nepean Sportsplex Pools">Nepean Sportsplex Pools</Pool>
-	<Pool value="Pinecrest Pool">Pinecrest Pool</Pool>
-	<Pool class="even" value="Plant Pool">Plant Pool</Pool>
-	<Pool value="Ray Friel Wave Pool">Ray Friel Wave Pool</Pool>
-	<Pool class="even" value="Sawmill Creek Pool">Sawmill Creek Pool</Pool>
-	<Pool value="Splash Wave Pool">Splash Wave Pool</Pool>
-	<Pool class="even" value="St-Laurent Pool">St-Laurent Pool</Pool>
-	<Pool value="Walter Baker Pool">Walter Baker Pool</Pool>
-	<Pool class="even" value="Bearbrook">Bearbrook (Outdoor)</Pool>
-	<Pool value="Genest">Genest (Outdoor)</Pool>
-	<Pool value="Beaverbrook">Beaverbrook (Outdoor)</Pool>
-	<Pool value="Corkstown">Corkstown (Outdoor)</Pool>
-	<Pool value="Crestview">Crestview (Outdoor)</Pool>
-	<Pool value="Entrance">Entrance (Outdoor)</Pool>
-	<Pool value="General Burns">General Burns (Outdoor)</Pool>
-	<Pool value="Glen Cairn">Glen Cairn (Outdoor)</Pool>
-	<Pool value="Katimavik">Katimavik (Outdoor)</Pool>
+	<Option qValue="Bob MacQuarrie - Orléans Pool" qName="sq_location"/>
+	<Option qValue="Brewer Pool" qName="sq_location"/>
+	<Option qValue="Canterbury Pool" qName="sq_location"/>
+	<Option qValue="Champagne Pool" qName="sq_location"/>
+	<Option qValue="Deborah Anne Kirwan Pool" qName="sq_location"/>
+	<Option qValue="François Dupuis Pool" qName="sq_location"/>
+	<Option qValue="Goulbourn Pool" qName="sq_location"/>
+	<Option qValue="Jack Purcell Pool" qName="sq_location"/>
+	<Option qValue="Kanata Wave Pool" qName="sq_location"/>
+	<Option qValue="Lowertown Pool" qName="sq_location"/>
+	<Option qValue="Nepean Sportsplex Pools" qName="sq_location"/>
+	<Option qValue="Pinecrest Pool" qName="sq_location"/>
+	<Option qValue="Plant Pool" qName="sq_location"/>
+	<Option qValue="Ray Friel Wave Pool" qName="sq_location"/>
+	<Option qValue="Sawmill Creek Pool" qName="sq_location"/>
+	<Option qValue="Splash Wave Pool" qName="sq_location"/>
+	<Option qValue="St-Laurent Pool" qName="sq_location"/>
+	<Option qValue="Walter Baker Pool" qName="sq_location"/>
+	<Option qValue="Bearbrook (Outdoor)" qName="sq_location"/>
+	<Option qValue="Genest (Outdoor)" qName="sq_location"/>
+	<Option qValue="Beaverbrook (Outdoor)" qName="sq_location"/>
+	<Option qValue="Corkstown (Outdoor)" qName="sq_location"/>
+	<Option qValue="Crestview (Outdoor)" qName="sq_location"/>
+	<Option qValue="Entrance (Outdoor)" qName="sq_location"/>
+	<Option qValue="General Burns (Outdoor)" qName="sq_location"/>
+	<Option qValue="Glen Cairn (Outdoor)" qName="sq_location"/>
+	<Option qValue="Katimavik (Outdoor)" qName="sq_location"/>
 </Location>

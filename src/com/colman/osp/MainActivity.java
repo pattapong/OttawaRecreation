@@ -1,152 +1,74 @@
 package com.colman.osp;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.w3c.dom.NodeList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
 
-import com.colman.parser.Doc;
-import com.colman.parser.PoolManager;
+import com.colman.om.Recreation;
+import com.colman.rest.ConfigurationManager;
 
 public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_main);
 
 		final Context applicationContext = this.getApplicationContext();
+
+		final ConfigurationManager config = ConfigurationManager
+				.getInstance();
 		
-		// Set day
-		final Spinner daySpinner = (Spinner) findViewById(R.id.day);
-
-		List<String> days = PoolManager.getAllDays(applicationContext);
-
-		ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, days);
-
-		dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-		daySpinner.setAdapter(dayAdapter);
+		config.setContext(applicationContext);
 		
-		// Set pool
-		final Spinner spinner = (Spinner) findViewById(R.id.poolName);
+		config.init();
 
-		List<String> pools = PoolManager.getAllPools(applicationContext);
+		final com.colman.om.Activity activity = config.getActivity();
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, pools);
+		LinearLayout layout = (LinearLayout) findViewById(R.id.LinearLayout1);
 
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		LayoutParams layoutParameter = new LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-		spinner.setAdapter(adapter);
+		for (final Recreation nextRecreation : activity.getRecreationList()) {
 
-		// Set type
-		final Spinner typeSpinner = (Spinner) findViewById(R.id.swimType);
+			final Button newButton = new Button(this);
 
-		List<String> types = PoolManager.getAllTypes(applicationContext);
+			newButton.setText(nextRecreation.getName());
 
-		ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, types);
+			layout.addView(newButton, layoutParameter);
 
-		typeAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			newButton.setOnClickListener(new OnClickListener() {
 
-		typeSpinner.setAdapter(typeAdapter);
+				@Override
+				public void onClick(final View v) {
 
-		// Add listener to button
-		final Button searchButton = (Button) findViewById(R.id.searchButton);
+					final Intent intent = new Intent(v.getContext(),
+							SearchActivity.class);
 
-		searchButton.setOnClickListener(new OnClickListener() {
+					intent.putExtra("recreationName", nextRecreation.getName());
+					
+					startActivity(intent);
 
-			@Override
-			public void onClick(View v) {
-
-				final String day = daySpinner.getSelectedItem().toString();
-				
-				final String poolName = spinner.getSelectedItem().toString();
-
-				final String swimType = typeSpinner.getSelectedItem()
-						.toString();
-
-				// Potential thread
-				DownLoadSchedule task = new DownLoadSchedule(v);
-
-				task.execute(new String[] { poolName, swimType, day });
-
-			}
-		});
+				}
+			});
+		}
 
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.recreations, menu);
 		return true;
 	}
 
-	private class DownLoadSchedule extends AsyncTask<String, Void, String> {
-
-		private View v;
-
-		DownLoadSchedule(View v) {
-			this.v = v;
-		}
-
-		@Override
-		protected String doInBackground(String... args) {
-			
-			final NodeList schedule = PoolManager.getSchedule(args[0], args[1], args[2]);
-
-			final Doc newDoc = getDoc(schedule);
-			
-			final Intent intent = new Intent(v.getContext(),
-					SearchResultActivity.class);
-
-			intent.putExtra("time", newDoc);
-
-			startActivity(intent);
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-
-		}
-	}
-
-	
-	public Doc getDoc(NodeList schedule){
-		
-//		List<String> day = PoolManager.getAttributeValue(schedule.item(0),
-//				"day");
-		
-		List<String> start_time = PoolManager.getAttributeValue(schedule.item(0),
-		"start_time");
-
-		List<String> end_time = PoolManager.getAttributeValue(schedule.item(0),
-		"end_time");
-		
-		Doc newDoc = new Doc();
-		
-		newDoc.setStart_time(start_time.get(0));
-		
-		newDoc.setEnd_time(end_time.get(0));
-		
-		return newDoc;
-	}
 }

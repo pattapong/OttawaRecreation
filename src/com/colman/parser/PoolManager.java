@@ -24,6 +24,9 @@ import org.xml.sax.SAXException;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import com.colman.om.Mapping;
+import com.colman.om.Recreation;
+import com.colman.rest.ConfigurationManager;
 import com.colman.rest.RequestManager;
 
 public class PoolManager {
@@ -51,200 +54,6 @@ public class PoolManager {
 		nodeAttributeMap.put("start_time", "str");
 		nodeAttributeMap.put("timestamp", "date");
 
-		dayMap.put("today", "day_today");
-		dayMap.put("Monday", "sq_day_monday");
-		dayMap.put("Tuesday", "sq_day_tuesday");
-		dayMap.put("Wednesday", "sq_day_wednesday");
-		dayMap.put("Thursday", "sq_day_thursday");
-		dayMap.put("Friday", "sq_day_friday");
-		dayMap.put("Saturday", "sq_day_saturday");
-		dayMap.put("Sunday", "sq_day_sunday");
-	}
-
-	public static List<String> getAllPools(final Context context) {
-
-		final List<String> poolList = new ArrayList<String>();
-
-		Document locationDom;
-		try {
-
-			AssetManager am = context.getAssets();
-
-			InputStream is = am.open("Location.xml");
-
-			locationDom = XmlParser.getDom(is);
-
-			final NodeList nList = locationDom.getElementsByTagName("Pool");
-
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-
-				final Pool newPool = new Pool();
-
-				final Node nNode = nList.item(temp);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-					Element eElement = (Element) nNode;
-
-					newPool.setClassName(eElement.getAttribute("class"));
-
-					newPool.setName(eElement.getAttribute("value"));
-				}
-
-				poolList.add(newPool.getName());
-			}
-
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return poolList;
-	}
-
-	public static List<String> getAllTypes(Context context) {
-
-		final List<String> typeList = new ArrayList<String>();
-
-		AssetManager am = context.getAssets();
-
-		InputStream is;
-		try {
-			is = am.open("SwimType.xml");
-
-			final Document locationDom = XmlParser.getDom(is);
-
-			final NodeList nList = locationDom.getElementsByTagName("Option");
-
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-
-				final Type newType = new Type();
-
-				final Node nNode = nList.item(temp);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-					Element eElement = (Element) nNode;
-
-					newType.setClassName(eElement.getAttribute("class"));
-
-					newType.setName(eElement.getAttribute("value"));
-				}
-
-				typeList.add(newType.getName());
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return typeList;
-	}
-
-	public static List<String> getAllDays(final Context context) {
-
-		final List<String> dayList = new ArrayList<String>();
-
-		AssetManager am = context.getAssets();
-
-		InputStream is;
-		try {
-			is = am.open("Day.xml");
-
-			final Document locationDom = XmlParser.getDom(is);
-
-			final NodeList nList = locationDom.getElementsByTagName("Day");
-
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-
-				final Day Day = new Day();
-
-				final Node nNode = nList.item(temp);
-
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-					Element eElement = (Element) nNode;
-
-					dayList.add(eElement.getAttribute("value"));
-				}
-
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return dayList;
-	}
-
-	public static NodeList getSchedule(String poolName, String swimType, String day) {
-
-		poolName = poolName.replaceAll(" ", "+");
-
-		swimType = swimType.replaceAll(" ", "+");
-
-		final String sqDate = dayMap.get(day);
-		
-		final List<BasicNameValuePair> qparams = new ArrayList<BasicNameValuePair>();
-
-		qparams.add(new BasicNameValuePair("stylesheet",
-				"http://app06.ottawa.ca/templates/xslt/public_swimming_results_en.xsl"));
-		qparams.add(new BasicNameValuePair("sq_event", "Swimming"));
-		qparams.add(new BasicNameValuePair("sq_lang", "en"));
-		qparams.add(new BasicNameValuePair("sort",
-				"location+asc,start_date+asc,dayNo+asc,start_time+asc,session_type+asc"));
-		qparams.add(new BasicNameValuePair("sq_location", poolName));
-		qparams.add(new BasicNameValuePair("sq_session_type", swimType));
-		qparams.add(new BasicNameValuePair(sqDate, day));
-
-		final String query = RequestManager.getQuery(qparams);
-
-		final HttpGet httpGet = RequestManager.getHttpGet("app06.ottawa.ca",
-				-1, "/cgi-bin/schedulesearch/searchschedule.pl", query);
-
-		System.out.println(httpGet.getURI());
-
-		InputStream inputStream = RequestManager.getResponse(httpGet);
-
-		Document document;
-		try {
-			document = getDom(inputStream);
-
-			final NodeList docList = document.getElementsByTagName("doc");
-
-			return docList;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-
 	}
 
 	public static Document getDom(final InputStream str) throws IOException,
@@ -264,7 +73,16 @@ public class PoolManager {
 
 			Object evaluate;
 
-			final String nodeType = nodeAttributeMap.get(attributeName);
+			// final String nodeType = nodeAttributeMap.get(attributeName);
+
+			final ConfigurationManager instance = ConfigurationManager
+					.getInstance();
+
+			final Recreation recreation = instance.getRecreation(instance
+					.getRecreationName());
+
+			final String nodeType = ConfigurationManager.getNodeAttribute(
+					recreation, attributeName);
 
 			if (nodeType.equalsIgnoreCase("arr")) {
 
@@ -301,5 +119,149 @@ public class PoolManager {
 		}
 
 		return strList;
+	}
+
+	public static List<String> getSpinnerItems(final Context context,
+			final String itemFile) {
+
+		final List<String> itemList = new ArrayList<String>();
+
+		Document locationDom;
+		try {
+
+			AssetManager am = context.getAssets();
+
+			InputStream is = am.open(itemFile);
+
+			locationDom = XmlParser.getDom(is);
+
+			final NodeList nList = locationDom.getElementsByTagName("Option");
+
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+
+				final Node nNode = nList.item(temp);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+					Element eElement = (Element) nNode;
+
+					itemList.add(eElement.getAttribute("qValue"));
+				}
+
+			}
+
+		} catch (final ParserConfigurationException e) {
+
+			e.printStackTrace();
+		} catch (final SAXException e) {
+
+			e.printStackTrace();
+		} catch (final IOException e) {
+
+			e.printStackTrace();
+		}
+
+		return itemList;
+	}
+
+	public static Mapping getNameValuePair(final Context context,
+			final String itemFile, final String value) {
+
+		try {
+
+			AssetManager am = context.getAssets();
+
+			InputStream is = am.open(itemFile);
+
+			return getNameValuePair(value, XmlParser.getDom(is));
+
+		} catch (final ParserConfigurationException e) {
+
+			e.printStackTrace();
+		} catch (final SAXException e) {
+
+			e.printStackTrace();
+		} catch (final IOException e) {
+
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static Mapping getNameValuePair(final String value,
+			Document locationDom) {
+
+		Mapping mapping = new Mapping();
+
+		final NodeList nList = locationDom.getElementsByTagName("Option");
+
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+
+			final Node nNode = nList.item(temp);
+
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element eElement = (Element) nNode;
+
+				if (eElement.getAttribute("qValue").equalsIgnoreCase(value)) {
+					mapping.setKey(eElement.getAttribute("qName"));
+					mapping.setValue(eElement.getAttribute("qValue"));
+					return mapping;
+				}
+			}
+
+		}
+		return null;
+	}
+
+	public static NodeList getNodeList(final String hostName,
+			final int portNumber, final String path,
+			List<Mapping> queryParameters) {
+
+		encode(queryParameters);
+
+		final List<BasicNameValuePair> qparams = new ArrayList<BasicNameValuePair>();
+
+		for (final Mapping nextMapping : queryParameters) {
+			qparams.add(new BasicNameValuePair(nextMapping.getKey(),
+					nextMapping.getValue()));
+		}
+
+		final String query = RequestManager.getQuery(qparams);
+
+		final HttpGet httpGet = RequestManager.getHttpGet(hostName, portNumber,
+				path, query);
+
+		System.out.println(httpGet.getURI());
+
+		InputStream inputStream = RequestManager.getResponse(httpGet);
+
+		Document document;
+		try {
+			document = getDom(inputStream);
+
+			final NodeList docList = document.getElementsByTagName("doc");
+
+			return docList;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+	private static void encode(final List<Mapping> queryParameters) {
+		for (final Mapping nextMapping : queryParameters) {
+			nextMapping.setValue(nextMapping.getValue().replaceAll(" ", "+"));
+			nextMapping.setKey(nextMapping.getKey().replaceAll(" ", "+"));
+		}
+
 	}
 }

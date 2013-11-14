@@ -1,0 +1,35 @@
+<activity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<recreation name="Swimming" host="app06.ottawa.ca" port="-1" path="/cgi-bin/schedulesearch/searchschedule.pl">
+		<queryParameter>
+			<mapping key="stylesheet" value="http://app06.ottawa.ca/templates/xslt/public_swimming_results_en.xsl"/>
+			<mapping key="sq_event" value="Swimming"/>
+			<mapping key="sq_lang" value="en"/>
+			<mapping key="sort" value="location+asc,start_date+asc,dayNo+asc,start_time+asc,session_type+asc"/>
+		</queryParameter>
+		<queryParameterPrompt>
+			<mapping key="Day" value="Day.xml"/>
+			<mapping key="Location" value="Location.xml"/>
+			<mapping key="Session Type" value="SwimType.xml"/>
+		</queryParameterPrompt>
+		<nodeMapping>
+			<mapping key="day" value="arr"/>
+			<mapping key="dayNo" value="arr"/>
+			<mapping key="end_date" value="date"/>
+			<mapping key="end_time" value="str"/>
+			<mapping key="event" value="arr"/>
+			<mapping key="id" value="str"/>
+			<mapping key="lang" value="str"/>
+			<mapping key="location" value="arr"/>
+			<mapping key="location_alt" value="arr"/>
+			<mapping key="location_map" value="str"/>
+			<mapping key="location_url" value="str"/>
+			<mapping key="popularity" value="int"/>
+			<mapping key="region" value="arr"/>
+			<mapping key="session_type" value="arr"/>
+			<mapping key="start_date" value="date"/>
+			<mapping key="start_time" value="str"/>
+			<mapping key="timestamp" value="date"/>
+		</nodeMapping>
+
+	</recreation>
+</activity>

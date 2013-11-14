@@ -1,10 +1,10 @@
-<Days>
-<Day value="today"/>
-<Day value="Monday"/> 
-<Day value="Tuesday"/> 
-<Day value="Wednesday"/> 
-<Day value="Thursday"/> 
-<Day value="Friday"/> 
-<Day value="Saturday"/> 
-<Day value="Sunday"/> 	
-</Days>
+<Day>
+<Option qValue="today" qName="day_today"/>
+<Option qValue="Monday" qName="sq_day_monday"/> 
+<Option qValue="Tuesday" qName="sq_day_tuesday"/> 
+<Option qValue="Wednesday" qName="sq_day_wednesday"/> 
+<Option qValue="Thursday" qName="sq_day_thursday"/> 
+<Option qValue="Friday" qName="sq_day_friday"/> 
+<Option qValue="Saturday" qName="sq_day_saturday"/> 
+<Option qValue="Sunday" qName="sq_day_sunday"/> 	
+</Day>

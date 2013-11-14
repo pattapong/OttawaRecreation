@@ -1,16 +1,15 @@
 <Type>
-	<Option value="Any">Any</Option>
-	<Option class="even" value="Lane Swim">Lane Swim</Option>
-	<Option value="50m Lane Swim">50m Lane Swim</Option>
-	<Option class="even" value="Family Swim">Family Swim</Option>
-	<Option class="even" value="Public Swim">Public Swim</Option>
-	<Option value="Wave Swim">Wave Swim</Option>
-	<Option class="even" value="50%2B Vitality">50+ Vitality</Option>
-	<Option value="50%2B Swim">50+ Swim</Option>
-	<Option class="even" value="Teen swim">Teen Swim</Option>
-	<Option value="Women Only">Women Only</Option>
-	<Option value="Women Only Family">Women Only Family</Option>
-	<Option value="Swim for Persons with a Disability">Swim for Persons with a Disability</Option>
-	<Option value="Preschool Swim">Preschool Swim</Option>
-	<Option class="even" value="Underwater Hockey">Underwater Hockey</Option>
+	<Option qValue="Lane Swim" qName="sq_session_type"/>
+	<Option qValue="50m Lane Swim" qName="sq_session_type"/>
+	<Option qValue="Family Swim" qName="sq_session_type"/>
+	<Option qValue="Public Swim" qName="sq_session_type"/>
+	<Option qValue="Wave Swim" qName="sq_session_type"/>
+	<Option qValue="50+ Vitality" qName="sq_session_type"/>
+	<Option qValue="50+ Swim" qName="sq_session_type"/>
+	<Option qValue="Teen swim" qName="sq_session_type"/>
+	<Option qValue="Women Only" qName="sq_session_type"/>
+	<Option qValue="Women Only Family" qName="sq_session_type"/>
+	<Option qValue="Swim for Persons with a Disability" qName="sq_session_type"/>
+	<Option qValue="Preschool Swim" qName="sq_session_type"/>
+	<Option qValue="Underwater HocqName" qName="sq_session_type"/>
 </Type>
